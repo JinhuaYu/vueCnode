@@ -41,25 +41,37 @@
         </div>
         <div class="reply-list">
           <div class="reply-item" v-for="(item, index) in detail.replies" :key="item.id" :id="item.id">
+
             <div class="reply-item-head">
-              <span class="avatar-img">
-                <router-link :to="{ name: 'User', params: {loginname: item.author.loginname}}">
-                  <img :src="item.author.avatar_url" />
-                </router-link>
+              <span class="user-info">
+                <span class="avatar-img">
+                  <router-link :to="{ name: 'User', params: {loginname: item.author.loginname}}">
+                    <img :src="item.author.avatar_url" />
+                  </router-link>
+                </span>
+                <span><router-link :to="{ name: 'User', params: {loginname: item.author.loginname}}">{{item.author.loginname}}</router-link></span>
+                <span class="c-aaa">{{ index + 1 }}楼</span>
+                <span class="c-aaa">{{item.create_at | fromNow }}</span>
+                <span class="tag light" v-if="detail.author.loginname == item.author.loginname">作者</span>
               </span>
-              <span><router-link :to="{ name: 'User', params: {loginname: item.author.loginname}}">{{item.author.loginname}}</router-link></span>
-              <span>{{ index + 1 }}楼</span>
-              <span>{{item.create_at | fromNow }}</span>
-              <span class="tag light" v-if="detail.author.loginname == item.author.loginname">作者</span>
-              <span class="pull-right">
-                <i class="fa"
-                  :class="[item.is_uped ? 'fa-heart' : 'fa-heart-o']"
-                  title="赞"
-                  @click="like(item.id, item.author, index)"
-                ></i>
-                {{item.ups.length}}
+
+              <span class="user-action">
+                <span class="like" :class="[item.is_uped ? 'static' : '']">
+                  <i class="fa"
+                    :class="[item.is_uped ? 'fa-heart' : 'fa-heart-o']"
+                    title="喜欢"
+                    @click="like(item.id, item.author, index)">
+                  </i>
+                  <span class="like-count c-aaa" v-if="item.ups.length > 0">
+                    {{item.ups.length}}
+                  </span>
+                </span>
+                <span class="reply" v-if="isLogin">
+                  <i class="fa fa-reply" title="回复" @click="replyOther(item.author.loginname)"></i>
+                </span>
               </span>
             </div>
+
             <div class="reply-item-body">
               <div class="markdown-body" v-html="item.content"></div>
             </div>
@@ -247,6 +259,9 @@ export default {
      * @param {index}
      */
     like (replyId, author, index) {
+      if (!this.isLogin) {
+        return this.$message.warning('请先登录')
+      }
       if (author.loginname === this.userInfo.loginname) {
         return this.$message.warning('不能给自己点赞')
       }
@@ -264,7 +279,15 @@ export default {
             this.detail.replies[index].is_uped = false // 取消点赞
           }
         }
-      }).catch(e => e)
+      }).catch(e => {
+        this.$message.warning('响应超时')
+      })
+    },
+    // 不是真正的回复某人，只能在回复前面加上@某人
+    replyOther (loginname) {
+      var top = document.querySelector('.reply-from').offsetTop
+      window.scrollTo(0, top)
+      this.simplemde.value(`@${loginname} `)
     }
 
   },
@@ -315,5 +338,8 @@ export default {
 }
 .CodeMirror,.CodeMirror-scroll{
   min-height: 160px;
+}
+.el-textarea__inner{
+  border: none;
 }
 </style>
