@@ -186,7 +186,6 @@
   cursor: pointer;
 }
 
-
 .acticle-body {
   padding: 10px;
 }
@@ -214,8 +213,9 @@
   padding: 10px;
 }
 
-.reply-item-head span {
-  margin-right: 10px;
+.reply-item-head{
+  position: relative;
+  margin-bottom: 10px;
 }
 
 .reply-item-head .avatar-img img {
@@ -225,12 +225,43 @@
   border-radius: 4px;
 }
 
+.reply-item-head .user-info span {
+  margin-right: 10px;
+}
+
 .reply-item-body {
   padding-left: 45px;
 }
 
 .reply-area.hidden{
   visibility: hidden;
+}
+
+.user-action{
+  position: absolute;
+  right: 0;
+  top: 6px;
+  color: #999;
+}
+.reply-item .like{
+  display: none;
+}
+.reply-item:hover .like{
+  display: inline-block;
+}
+.reply-item .like.static{
+  display: inline-block !important;
+}
+
+.user-action .like i{
+  cursor: pointer;
+  margin-right: 4px;
+}
+.user-action .reply{
+  margin-left: 10px;
+}
+.user-action .reply i{
+  cursor: pointer;
 }
 /* comment css end */
 
