@@ -12,7 +12,7 @@
         <div class="body bg-fff">
           <div class="userPanel">
             <div class="userHead">
-              <img :src="user.avatar_url">
+              <img v-lazy="user.avatar_url">
             </div>
             <div class="userDetail">
               <h3>{{ user.loginname }}</h3>

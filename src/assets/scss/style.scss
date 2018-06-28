@@ -1,0 +1,53 @@
+// 进度条动画等待
+@include keyframes(progress-await) {
+  0% {width: 1%;}
+  3% {width: 10%;}
+  20% {width: 10%;}
+  22% {width: 13%;}
+  30% {width: 13%;}
+  32% {width: 45%;}
+  68% {width: 60%;}
+  79% {width: 60%;}
+  81% {width: 80%;}
+  100% {width: 80%;}
+}
+// 进度条动画快进
+@include keyframes(progress-forward) {
+  0% {width: 1%;opacity: 1;}
+  50% {opacity: 1;width: 103%;}
+  100% {opacity: .3;width: 103%;}
+}
+.progress {
+  z-index: 99;
+  position: fixed;
+  height: 3px;
+  left: 0;
+  right: 0;
+  top: 0;
+  width: 0;
+  background: #80bd01;
+
+  &.start {
+    @include prefix(animation, progress-await 10s ease forwards);
+  }
+
+  &.finish {
+    @include prefix(animation, initial);
+    .progress-forward {
+        @include prefix(animation, progress-forward 600ms ease);
+    }
+  }
+
+  &.error {
+    background: #ed3f14;
+  }
+
+  .progress-forward {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: #80bd01;
+  }
+}

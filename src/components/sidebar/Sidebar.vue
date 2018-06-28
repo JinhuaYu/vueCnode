@@ -6,7 +6,7 @@
         <div class="head">作者</div>
         <div class="userbox pd-15">
           <router-link class="userhead" :to="{name: 'User', params:{loginname:author.loginname}}">
-            <img :src="author.avatar_url" alt="">
+            <img v-lazy="author.avatar_url" alt="">
           </router-link>
           <span class="username">
             <router-link :to="{name: 'User', params:{loginname:author.loginname}}">
@@ -28,7 +28,7 @@
           <div class="body">
             <div class="userbox">
               <router-link class="userhead" :to="{name: 'User', params:{loginname:userInfo.loginname}}">
-                <img :src="userInfo.avatar_url" alt="">
+                <img v-lazy="userInfo.avatar_url" alt="">
               </router-link>
               <span class="username">
                 <router-link :to="{name: 'User', params:{loginname:userInfo.loginname}}">
