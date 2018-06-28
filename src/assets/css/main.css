@@ -61,6 +61,7 @@
 .panel .head {
   background: #f6f6f6;
   padding: 15px;
+  overflow: hidden;
 }
 
 /* topic-list */
@@ -151,7 +152,7 @@
 
 .article-head {
   padding: 10px;
-  padding-right: 100px;
+  padding-right: 120px;
   border-bottom: 1px solid #e1e1e1;
   position: relative;
 }

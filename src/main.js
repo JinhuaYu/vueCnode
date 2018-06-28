@@ -12,7 +12,7 @@ import ElementUI from 'element-ui' // element-ui
 import 'element-ui/lib/theme-chalk/index.css' // element-ui css
 import 'element-ui/lib/theme-chalk/display.css' // element-ui基于断点的隐藏类
 import 'simplemde/dist/simplemde.min.css' // markdown-editor simpleMDE
-import 'font-awesome/css/font-awesome.min.css' // fontawesome
+// import 'font-awesome/css/font-awesome.min.css' // fontawesome
 
 // css
 import './assets/css/base.css' // reset css

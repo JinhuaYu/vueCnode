@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container release">
     <!-- sidebar -->
     <div class="sidebar hidden-sm-and-down">
       <div class="panel">
@@ -125,7 +125,7 @@ export default {
     initMarkdownEdit () {
       this.simplemde = new SimpleMDE({
         element: document.getElementById('markdown-editor'),
-        autoDownloadFontAwesome: false, // 是否需要下载图标
+        autoDownloadFontAwesome: true, // 是否需要下载图标
         spellChecker: false //
       })
     },
@@ -163,16 +163,13 @@ export default {
 </script>
 
 <style>
-.el-breadcrumb::after, .el-breadcrumb::before {
-    display: inline-block;
-    content: "";
+.release .el-breadcrumb::after, .el-breadcrumb::before {
+    display: inline-block !important;
 }
-.el-form-item::after, .el-form-item::before {
-  display: inline;
-  content: "";
+.release .el-form-item::after, .el-form-item::before {
+  display: inline !important;
 }
-.el-form-item__content::after, .el-form-item__content::before {
-  display: inline;
-  content: "";
+.release .el-form-item__content::after, .el-form-item__content::before {
+  display: inline !important;
 }
 </style>

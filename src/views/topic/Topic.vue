@@ -151,7 +151,7 @@ export default {
     initEditor () {
       this.simplemde = new SimpleMDE({
         element: document.getElementById('markdownEditor'),
-        autoDownloadFontAwesome: false,
+        autoDownloadFontAwesome: true,
         spellChecker: false,
         status: false
       })
