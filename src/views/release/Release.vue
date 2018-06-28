@@ -39,8 +39,8 @@
         </div>
         <div class="body bg-fff pd-15">
           <!-- form -->
-          <el-form ref="form" :model="form">
-            <el-form-item label="选择板块">
+          <el-form ref="form" :model="form" :rules="rules">
+            <el-form-item label="选择板块" prop="tab">
               <el-select v-model="form.tab">
                 <el-option label="客户端测试" value="dev"></el-option>
                 <el-option label="分享" value="share"></el-option>
@@ -48,8 +48,8 @@
                 <el-option label="招聘" value="job"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item>
-              <el-input v-model="form.title" placeholder="标题字数 10字以上"></el-input>
+            <el-form-item prop="title">
+              <el-input v-model.trim="form.title" placeholder="标题字数 10字以上"></el-input>
             </el-form-item>
             <el-form-item>
               <el-input type="textarea" id="markdown-editor"></el-input>
@@ -77,8 +77,17 @@ export default {
   data () {
     return {
       form: {
-        tab: 'dev', // 板块
+        tab: '', // 发布板块
         title: '' // 标题
+      },
+      rules: {
+        tab: [
+          {required: true, message: '请选择发布板块', trigger: 'change'}
+        ],
+        title: [
+          {required: true, message: '请输入标题', trigger: 'blur'},
+          {min: 10, message: '标题长度需在10字以上', trigger: 'blur'}
+        ]
       },
       isCreate: true // 是否新建话题 默认:true
     }
@@ -114,7 +123,6 @@ export default {
 
     // 初始化 editor
     initMarkdownEdit () {
-      debugger
       this.simplemde = new SimpleMDE({
         element: document.getElementById('markdown-editor'),
         autoDownloadFontAwesome: false, // 是否需要下载图标
@@ -126,24 +134,28 @@ export default {
     saveTopic () {
       try {
         if (!this.isLogin) throw new Error('请先登录')
+        if (!this.simplemde.value()) throw new Error('内容不能为空')
       } catch (e) {
         return this.$message.warning(e.message)
       }
-      Axios.post(this.isCreate ? API_CONFIG.cerateTopic : API_CONFIG.updateTopic, {
-        accesstoken: this.accessToken,
-        topic_id: this.isCreate ? undefined : this.$route.params.id,
-        tab: this.form.tab,
-        title: this.form.title,
-        content: this.simplemde.value()
-      }).then(res => {
-        if (res.data.success) {
-          this.$message.success(this.isCreate ? '话题发布成功' : '话题更新成功')
-          this.$router.push({name: 'Topic', params: {id: res.data.topic_id}})
-        }
-      }).catch(e => e)
+      this.$refs['form'].validate((valid) => {
+        // 验证通过，提交表单
+        Axios.post(this.isCreate ? API_CONFIG.cerateTopic : API_CONFIG.updateTopic, {
+          accesstoken: this.accessToken,
+          topic_id: this.isCreate ? undefined : this.$route.params.id,
+          tab: this.form.tab,
+          title: this.form.title,
+          content: this.simplemde.value()
+        }).then(res => {
+          if (res.data.success) {
+            this.$message.success(this.isCreate ? '话题发布成功' : '话题更新成功')
+            this.$router.push({name: 'Topic', params: {id: res.data.topic_id}})
+          }
+        }).catch(e => e)
+      })
     }
-
   },
+
   mounted () {
     this.initMarkdownEdit()
   }

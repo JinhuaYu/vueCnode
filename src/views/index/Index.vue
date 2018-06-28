@@ -17,7 +17,7 @@
           </div>
         </div>
 
-        <List :topics="topics"/>
+        <List v-loading="loading" :topics="topics"/>
 
         <div class="paging">
           <el-pagination
@@ -45,7 +45,8 @@ export default {
       page: 1, // 当前页
       limit: 20, // 每一页的主题数量
       total: 1000, // 总条数
-      topics: []
+      topics: [],
+      loading: true
     }
   },
   created () {
@@ -64,6 +65,7 @@ export default {
     },
     // 获取主题列表
     getTopics () {
+      this.loading = true
       Axios.get(API_CONFIG.topics, {
         params: {
           page: this.page,
@@ -72,11 +74,14 @@ export default {
           mdrender: false
         }
       }).then(res => {
+        this.loading = false
         if (res.data.success) {
           this.topics = res.data.data
           // console.log(res.data)
         }
-      }).catch()
+      }).catch(e => {
+        this.loading = false
+      })
     }
   },
   watch: {

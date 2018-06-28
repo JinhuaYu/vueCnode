@@ -44,6 +44,7 @@
 <script>
 import Axios from 'axios'
 import API_CONFIG from '../../api/cnodejs.api'
+import { mapState } from 'vuex'
 export default {
   name: 'Messages',
   data () {
@@ -57,6 +58,9 @@ export default {
   created () {
     this.featchUserMsg()
   },
+  computed: {
+    ...mapState(['accessToken'])
+  },
   methods: {
     // 获取已读和未读消息
     // accesstoken String
@@ -64,7 +68,7 @@ export default {
     featchUserMsg () {
       Axios.get(API_CONFIG.message, {
         params: {
-          accesstoken: window.localStorage.access_token,
+          accesstoken: this.accessToken,
           mdrender: true
         }
       }).then(res => {
@@ -76,7 +80,7 @@ export default {
     // 标记全部已读
     markAll () {
       Axios.post(API_CONFIG.markAll, {
-        accesstoken: window.localStorage.access_token
+        accesstoken: this.accessToken
       }).then(res => {
         if (res.data.success) {
           this.$message.success('全部标记已读')
@@ -86,7 +90,7 @@ export default {
     // 标记单个消息为已读
     markOne (msgid) {
       Axios.post(`${API_CONFIG.markOne}${msgid}`, {
-        accesstoken: window.localStorage.access_token
+        accesstoken: this.accessToken
       }).then(res => {
         if (res.data.success) {
           this.$message.success('此消息已读')

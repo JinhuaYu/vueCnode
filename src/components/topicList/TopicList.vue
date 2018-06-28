@@ -3,7 +3,7 @@
     <div v-for="item in topics" :key="item.id" class="topic-item">
 
       <router-link class="user-avatar" :to="{name: 'User', params: { loginname:item.author.loginname }}">
-        <img :src="item.author.avatar_url" :title="item.author.loginname"/>
+        <img v-lazy="item.author.avatar_url" :title="item.author.loginname"/>
       </router-link>
 
       <span v-if="item.reply_count || item.visit_count" class="reply-count">

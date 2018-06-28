@@ -10,7 +10,7 @@
       status-icon
       ref="loginForm">
       <el-form-item prop="accessToken" :error="errorMsg">
-        <el-input v-model.trim="loginForm.accessToken" placeholder="access token" clearable></el-input>
+        <el-input v-model.trim="loginForm.accessToken" placeholder="accessToken" clearable></el-input>
       </el-form-item>
       <el-form-item>
         <a href="https://cnodejs.org/setting" target="_blank">如何获取Access Token？</a>

@@ -64,6 +64,9 @@
 }
 
 /* topic-list */
+.topic-list{
+  position: relative;
+}
 
 .topic-item {
   background: #fff;
