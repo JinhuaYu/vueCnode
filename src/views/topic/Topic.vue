@@ -46,7 +46,7 @@
               <span class="user-info">
                 <span class="avatar-img">
                   <router-link :to="{ name: 'User', params: {loginname: item.author.loginname}}">
-                    <img :src="item.author.avatar_url" />
+                    <img v-lazy="item.author.avatar_url" />
                   </router-link>
                 </span>
                 <span><router-link :to="{ name: 'User', params: {loginname: item.author.loginname}}">{{item.author.loginname}}</router-link></span>

@@ -2,7 +2,20 @@
 
 > A Vue.js project
 
-## Build Setup
+## 技术栈
+1.[vue](https://cn.vuejs.org/v2/guide/)(构建用户界面的渐进式框架)
+2.[vue-router](https://router.vuejs.org/zh/)(路由管理器)
+3.[vuex](https://vuex.vuejs.org/zh/)(状态管理模式)
+4.[webpack](https://www.webpackjs.com/concepts/)(静态模块打包器)
+
+## 第三方库
+[highlight.js](https://highlightjs.org/)(代码高亮)
+[moment](http://momentjs.cn/docs/)(日期格式化)
+[axios](https://www.kancloud.cn/yunye/axios/234845)(基于 promise 的 HTTP 库)
+[element-ui](http://element.eleme.io/#/zh-CN/)(基于 Vue 2.0 的桌面端组件库)
+[simplemde](https://simplemde.com/)(SimpleMDE Markdown Editor)
+
+## 安装运行
 
 ``` bash
 # install dependencies
@@ -13,18 +26,4 @@ npm run dev
 
 # build for production with minification
 npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
